@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mlphc-gpu"
+version = "1.0.0"
+description = "Tensorized GPU-accelerated MLPHC for SITA-TW"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+  "numpy>=1.23",
+  "scipy>=1.9",
+  "h5py>=3.8",
+  "torch>=2.0",
+]
+
+[tool.setuptools.packages.find]
+include = ["mlphc_gpu*"]
