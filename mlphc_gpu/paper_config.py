@@ -7,9 +7,9 @@ from dataclasses import dataclass
 
 @dataclass(frozen=True)
 class PaperConfig:
-    hidden_neurons: int = 8
-    population_size: int = 20
-    parameter_scale: float = 2.0
+    hidden_neurons: int = 4
+    population_size: int = 30
+    parameter_scale: float = 4.0
     evaluations_per_target: int = 50
     seed: int = 2026091101
     exploration_fraction: float = 15.0 / 40.0

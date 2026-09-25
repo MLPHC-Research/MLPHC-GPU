@@ -32,7 +32,7 @@ PopulationInitializer = Callable[[torch.Tensor, torch.Generator], None]
 
 @dataclass(frozen=True)
 class HCLPSOConfig:
-    population_size: int = 20
+    population_size: int = 30
     max_evaluations: int = 5000
     schedule_evaluations: int | None = None
     seed: int = 2026091101

@@ -54,4 +54,4 @@ Run a selected subset, such as Cases 20, 22, and 24.
 python scripts/run_paper_suite.py --cases 20,22,24 --runs 25
 ```
 
-The default configuration uses a GPU, a 3-8-1 MLP, 20 particles, and an evaluation budget of `50 × TargetNum`. Results are organized by case and independent trial under `results/paper_36/`. Add `--device cpu --disable-cuda-graph` only for a CPU functional check.
+The default configuration uses a GPU, a 3-4-1 MLP with 20 parameters searched in `[-4,4]^20`, 30 particles, and an evaluation budget of `50 × TargetNum`. Results are organized by case and independent trial under `results/paper_36/`. Add `--device cpu --disable-cuda-graph` only for a CPU functional check.

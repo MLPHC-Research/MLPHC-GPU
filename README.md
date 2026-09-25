@@ -2,7 +2,7 @@
 
 This repository provides the reproducible implementation of MLPHC-GPU from the paper **Tensorized GPU-Accelerated Hyper-Construction for Large-Scale Sensor--Interceptor--Target Assignment With Time Windows**. The implementation tensorizes candidate-quad scoring, constraint-state updates, feasibility masking, HCLPSO population updates, and global-best reduction with PyTorch.
 
-> **Paper benchmark data:** [Download the 36 SITA-TW instances from the GitHub Release](https://github.com/MaWeijie0908/MLPHC-GPU/releases/tag/benchmarks-v1.0).
+> **Paper benchmark data:** [Download the 36 SITA-TW instances from the GitHub Release](../../releases/tag/benchmarks-v1.0).
 
 ## Paper configuration
 
@@ -10,12 +10,12 @@ This repository provides the reproducible implementation of MLPHC-GPU from the p
 
 | Setting | Default |
 |---|---:|
-| MLP architecture | 3-8-1 |
-| Hidden units | 8 |
-| MLP parameter dimension | 40 |
-| Parameter range | `[-2, 2]^40` |
-| HCLPSO population size | 20 |
-| Exploration/exploitation subpopulations | 8 / 12 |
+| MLP architecture | 3-4-1 |
+| Hidden units | 4 |
+| MLP parameter dimension | 20 |
+| Parameter range | `[-4, 4]^20` |
+| HCLPSO population size | 30 |
+| Exploration/exploitation subpopulations | 11 / 19 |
 | Maximum function evaluations | `50 × TargetNum` |
 | Exemplar refresh | After six consecutive non-improving generations |
 | Numerical precision | `float64` |
@@ -44,11 +44,11 @@ python scripts/generate_demo_instance.py
 python scripts/run_paper_configuration.py examples/demo_instance.mat
 ```
 
-The result is written to `results/demo_instance_paper_configuration.json`. It contains the best objective value, the 40 MLP parameters, the selected quads, convergence records, the evaluation count, and the optimization time.
+The result is written to `results/demo_instance_paper_configuration.json`. It contains the best objective value, the 20 MLP parameters, the selected quads, convergence records, the evaluation count, and the optimization time.
 
 ## Paper benchmark
 
-1. Open the [benchmark Release](https://github.com/MaWeijie0908/MLPHC-GPU/releases/tag/benchmarks-v1.0).
+1. Open the [benchmark Release](../../releases/tag/benchmarks-v1.0).
 2. Download `MLPHC-GPU-paper-36-instances.zip`.
 3. Extract the archive into the repository root. The instances will be placed in `benchmarks/paper_36/`.
 
@@ -89,7 +89,7 @@ The MATLAB `.mat` input format is documented in `benchmarks/paper_36/README.md`.
 ## Repository structure
 
 - `mlphc_gpu/hclpso_gpu.py`: tensorized HCLPSO.
-- `mlphc_gpu/optimized_dynamic_mlp_gpu.py`: the 3-8-1 MLP scoring model.
+- `mlphc_gpu/optimized_dynamic_mlp_gpu.py`: the 3-4-1 MLP scoring model.
 - `mlphc_gpu/optimized_dynamic_mmrra_rbf_gpu.py`: static-shape GPU construction and CUDA Graph execution.
 - `mlphc_gpu/dynamic_mmrra_rbf_gpu.py`: candidate quads, time windows, and constraint tensors.
 - `mlphc_gpu/instance_io.py`: MATLAB instance loading.
@@ -106,7 +106,7 @@ python -m unittest discover -s tests
 
 ## Method overview
 
-Each HCLPSO particle encodes the 40 parameters of a 3-8-1 MLP construction rule. For all particles in a generation, the GPU evaluates the three features and MLP scores of the candidate quads in batches. Each particle then selects its highest-scoring feasible quad.
+Each HCLPSO particle encodes the 20 parameters of a 3-4-1 MLP construction rule. For all particles in a generation, the GPU evaluates the three features and MLP scores of the candidate quads in batches. Each particle then selects its highest-scoring feasible quad.
 
 After each selection, indexed tensor operations update the remaining target assignments, interceptor ammunition, and sensor-channel capacity over time. A Boolean feasibility mask then disables quads that violate the updated constraints. This score-select-update-mask procedure continues until no feasible quad remains, producing a complete feasible solution and its objective value.
 

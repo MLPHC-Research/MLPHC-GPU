@@ -37,7 +37,7 @@ def _json_value(value: Any) -> Any:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Tensorized GPU HCLPSO optimization of the paper's 3-8-1 MLP rule."
+        description="Tensorized GPU HCLPSO optimization of the paper's 3-4-1 MLP rule."
     )
     parser.add_argument("instance", type=Path, help="SITA-TW MATLAB instance (.mat)")
     parser.add_argument("--output", type=Path, help="JSON result path")

@@ -18,14 +18,14 @@ class OptimizedDynamicMLPGPUEvaluator(OptimizedDynamicMMRRBFGPUEvaluator):
 
     The output bias is omitted because adding the same scalar to every
     candidate logit cannot alter the greedy ranking. The paper configuration
-    uses H=8 and therefore has 3H + H + H = 40 parameters.
+    uses H=4 and therefore has 3H + H + H = 20 parameters.
     """
 
     def __init__(
         self,
         *args,
-        mlp_hidden_neurons: int = 8,
-        parameter_scale: float = 2.0,
+        mlp_hidden_neurons: int = 4,
+        parameter_scale: float = 4.0,
         **kwargs,
     ) -> None:
         if mlp_hidden_neurons < 1:
@@ -239,7 +239,7 @@ class AutoStructureDynamicMLPGPUEvaluator(OptimizedDynamicMLPGPUEvaluator):
         *args,
         max_hidden_neurons: int = 5,
         gate_threshold: float = 0.5,
-        parameter_scale: float = 2.0,
+        parameter_scale: float = 4.0,
         **kwargs,
     ) -> None:
         if max_hidden_neurons < 1:
